@@ -1,8 +1,8 @@
 export default class View {
-  #weatherData;
+  #root;
 
   constructor({ rootSelector } = {}) {
-    this.root = document.querySelector(rootSelector);
-    this.root.className += " bg-black w-screen h-screen";
+    this.#root = document.querySelector(rootSelector);
+    this.#root.className += " bg-black w-screen h-screen";
   }
 }
