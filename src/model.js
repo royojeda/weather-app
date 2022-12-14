@@ -6,11 +6,14 @@ export default class Model {
   }
 
   async fetchWeatherData(location) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${
-      this.#apiKey
-    }`;
-    const response = await fetch(url, { mode: "cors" });
+    const response = await fetch(this.#createUrl(location), { mode: "cors" });
     const weatherData = await response.json();
     return weatherData;
+  }
+
+  #createUrl(location) {
+    return `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${
+      this.#apiKey
+    }`;
   }
 }
