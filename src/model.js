@@ -1,19 +1,19 @@
 export default class Model {
-  #apiKey;
+  #APIKey;
 
-  constructor({ apiKey }) {
-    this.#apiKey = apiKey;
+  constructor({ APIKey }) {
+    this.#APIKey = APIKey;
   }
 
   async fetchWeatherData(location) {
-    const response = await fetch(this.#createUrl(location), { mode: "cors" });
+    const response = await fetch(this.#createURL(location), { mode: "cors" });
     const weatherData = await response.json();
     return weatherData;
   }
 
-  #createUrl(location) {
+  #createURL(location) {
     return `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${
-      this.#apiKey
+      this.#APIKey
     }`;
   }
 }
