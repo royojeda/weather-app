@@ -5,6 +5,6 @@ export default class Controller {
   }
 
   async start() {
-    console.log(await this.model.fetchWeatherData("quezon city"));
+    this.view.showHome();
   }
 }
