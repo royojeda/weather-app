@@ -19,4 +19,13 @@ export default class View {
     `;
     this.#form = document.querySelector("form");
   }
+
+  bindGetWeather(handler) {
+    this.#form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const formProps = Object.fromEntries(formData);
+      handler(formProps.location);
+    });
+  }
 }

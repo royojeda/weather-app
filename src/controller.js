@@ -6,5 +6,11 @@ export default class Controller {
 
   async start() {
     this.view.showHome();
+    this.view.bindGetWeather(this.handleGetWeather);
   }
+
+  handleGetWeather = async (location) => {
+    const result = await this.model.fetchWeatherData(location);
+    console.log(result);
+  };
 }
