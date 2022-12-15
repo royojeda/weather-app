@@ -8,6 +8,9 @@ export default class Model {
   async fetchWeatherData(location) {
     const response = await fetch(this.#createURL(location), { mode: "cors" });
     const weatherData = await response.json();
+    if (weatherData.cod === "404") {
+      return weatherData.message;
+    }
     return Model.#processWeatherData(weatherData);
   }
 
