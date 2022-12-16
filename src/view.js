@@ -41,39 +41,64 @@ export default class View {
   showWeather(weather) {
     this.#root.innerHTML = /* html */ `
       <div class="h-full flex justify-center items-center text-gray-500 p-4">
-        <div class="flex flex-col gap-2">
-          <div>
+        <div class="flex flex-col gap-4">
+          <div class="text-center text-3xl font-semibold">
             ${weather.location.name}, ${weather.location.country}
           </div>
-          <div>
-            ${
-              weather.condition.description.charAt(0).toUpperCase() +
-              weather.condition.description.slice(1)
-            }
+          <div class="text-center text-6xl">
+            &nbsp;&nbsp;${(weather.temperature - 273.15).toFixed(0)}°
           </div>
-          <div>
-            Temperature: ${(weather.temperature - 273.15).toFixed(
-              0
-            )}° C (feels like ${(weather.feelsLike - 273.15).toFixed(0)}° C)
+          <div class="flex justify-center items-center gap-2">
+            <img class="h-20 w-20" src=${weather.condition.iconSource}>
+            <div class="text-center italic">
+              ${
+                weather.condition.description.charAt(0).toUpperCase() +
+                weather.condition.description.slice(1)
+              }
+            </div>
           </div>
-          <div>
-            Humidity: ${weather.humidity}%
-          </div>
-          <div>
-            Sunrise: ${new Date(
-              (weather.sunrise + weather.timeZone) * 1000
-            ).getUTCHours()}:${new Date(
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <div class="text-center underline">
+                Feels like
+              </div>
+              <div class="flex justify-center">
+                ${(weather.feelsLike - 273.15).toFixed(0)}°
+              </div>
+            </div>
+            <div>
+              <div class="text-center underline">
+                Humidity
+              </div>
+              <div class="flex justify-center">
+                ${weather.humidity}%
+              </div>
+            </div>
+            <div>
+              <div class="text-center underline">
+                Sunrise</div>
+              <div class="flex justify-center">
+                ${new Date(
+                  (weather.sunrise + weather.timeZone) * 1000
+                ).getUTCHours()}:${new Date(
       (weather.sunrise + weather.timeZone) * 1000
     ).getUTCMinutes()} AM
-          </div>
-          <div>
-            Sunrise: ${
-              new Date(
-                (weather.sunset + weather.timeZone) * 1000
-              ).getUTCHours() - 12
-            }:${new Date(
+              </div>
+            </div>
+            <div>
+              <div class="text-center underline">
+                Sunset
+              </div>
+              <div class="flex justify-center">
+                ${
+                  new Date(
+                    (weather.sunset + weather.timeZone) * 1000
+                  ).getUTCHours() - 12
+                }:${new Date(
       (weather.sunset + weather.timeZone) * 1000
     ).getUTCMinutes()} PM
+              </div>
+            </div>
           </div>
         </div>
       </div>
