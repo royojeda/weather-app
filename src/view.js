@@ -37,4 +37,46 @@ export default class View {
       handler(formProps.location);
     });
   }
+
+  showWeather(weather) {
+    this.#root.innerHTML = /* html */ `
+      <div class="h-full flex justify-center items-center text-gray-500 p-4">
+        <div class="flex flex-col gap-2">
+          <div>
+            ${weather.location.name}, ${weather.location.country}
+          </div>
+          <div>
+            ${
+              weather.condition.description.charAt(0).toUpperCase() +
+              weather.condition.description.slice(1)
+            }
+          </div>
+          <div>
+            Temperature: ${(weather.temperature - 273.15).toFixed(
+              0
+            )}° C (feels like ${(weather.feelsLike - 273.15).toFixed(0)}° C)
+          </div>
+          <div>
+            Humidity: ${weather.humidity}%
+          </div>
+          <div>
+            Sunrise: ${new Date(
+              (weather.sunrise + weather.timeZone) * 1000
+            ).getUTCHours()}:${new Date(
+      (weather.sunrise + weather.timeZone) * 1000
+    ).getUTCMinutes()} AM
+          </div>
+          <div>
+            Sunrise: ${
+              new Date(
+                (weather.sunset + weather.timeZone) * 1000
+              ).getUTCHours() - 12
+            }:${new Date(
+      (weather.sunset + weather.timeZone) * 1000
+    ).getUTCMinutes()} PM
+          </div>
+        </div>
+      </div>
+    `;
+  }
 }

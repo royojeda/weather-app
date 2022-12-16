@@ -5,12 +5,16 @@ export default class Controller {
   }
 
   async start() {
-    this.view.showHome();
-    this.view.bindGetWeather(this.handleGetWeather);
+    // this.view.showHome();
+    // this.view.bindGetWeather(this.handleGetWeather);
+    const weather = await this.model.fetchWeatherData("quezon city");
+    console.log(weather);
+    this.view.showWeather(weather);
   }
 
   handleGetWeather = async (location) => {
-    const result = await this.model.fetchWeatherData(location);
-    console.log(result);
+    const weather = await this.model.fetchWeatherData(location);
+    console.log(weather);
+    this.view.showWeather(weather);
   };
 }
