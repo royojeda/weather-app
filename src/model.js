@@ -29,7 +29,7 @@ export default class Model {
       condition: {
         category: weatherData.weather[0].main,
         description: weatherData.weather[0].description,
-        icon: weatherData.weather[0].icon,
+        iconSource: Model.#fetchIconSource(weatherData.weather[0].icon),
       },
       temperature: weatherData.main.temp,
       feelsLike: weatherData.main.feels_like,
@@ -39,5 +39,10 @@ export default class Model {
       timeZone: weatherData.timezone,
     };
     return processedData;
+  }
+
+  static #fetchIconSource(iconName) {
+    const source = `https://openweathermap.org/img/wn/${iconName}@4x.png`;
+    return source;
   }
 }
