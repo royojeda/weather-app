@@ -29,6 +29,7 @@ export default class Model {
       condition: {
         category: weatherData.weather[0].main,
         description: weatherData.weather[0].description,
+        icon: weatherData.weather[0].icon,
       },
       temperature: weatherData.main.temp,
       feelsLike: weatherData.main.feels_like,
