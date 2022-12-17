@@ -40,8 +40,8 @@ export default class View {
 
   showWeather(weather) {
     this.#root.innerHTML = /* html */ `
-      <div class="h-full flex justify-center items-center text-gray-500 p-4">
-        <div class="flex flex-col gap-4">
+      <div class="h-full flex flex-col  justify-center items-center text-gray-500 p-4 gap-2">
+        <div class="flex flex-col gap-4 border rounded-md drop-shadow p-10">
           <div class="text-center text-3xl font-semibold">
             ${weather.location.name}, ${weather.location.country}
           </div>
@@ -59,25 +59,25 @@ export default class View {
           </div>
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <div class="text-center underline">
+              <div class="text-center text-sm">
                 Feels like
               </div>
-              <div class="flex justify-center">
+              <div class="flex justify-center text-xl">
                 ${(weather.feelsLike - 273.15).toFixed(0)}°
               </div>
             </div>
             <div>
-              <div class="text-center underline">
+              <div class="text-center text-sm">
                 Humidity
               </div>
-              <div class="flex justify-center">
+              <div class="flex justify-center text-xl">
                 ${weather.humidity}%
               </div>
             </div>
             <div>
-              <div class="text-center underline">
+              <div class="text-center text-sm">
                 Sunrise</div>
-              <div class="flex justify-center">
+              <div class="flex justify-center text-xl">
                 ${new Date(
                   (weather.sunrise + weather.timeZone) * 1000
                 ).getUTCHours()}:${new Date(
@@ -86,10 +86,10 @@ export default class View {
               </div>
             </div>
             <div>
-              <div class="text-center underline">
+              <div class="text-center text-sm">
                 Sunset
               </div>
-              <div class="flex justify-center">
+              <div class="flex justify-center text-xl">
                 ${
                   new Date(
                     (weather.sunset + weather.timeZone) * 1000
