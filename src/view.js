@@ -119,4 +119,18 @@ export default class View {
       handler();
     });
   }
+
+  showError(errorMessage) {
+    this.#root.innerHTML = /* html */ `
+      <div class="h-full flex flex-col  justify-center items-center text-gray-500 p-4 gap-4">
+        <div class="flex flex-col gap-4 border rounded-md drop-shadow p-10">
+          ${errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1)}.
+        </div>
+        <button class="underline decoration-indigo-400 transition hover:drop-shadow">
+          Try another location
+        </button>
+      </div>
+    `;
+    this.#returnHomeButton = document.querySelector("button");
+  }
 }

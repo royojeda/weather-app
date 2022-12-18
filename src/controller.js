@@ -10,7 +10,11 @@ export default class Controller {
 
   handleGetWeather = async (location) => {
     const weather = await this.model.fetchWeatherData(location);
-    this.view.showWeather(weather);
+    if (weather.cod === "404") {
+      this.view.showError(weather.message);
+    } else {
+      this.view.showWeather(weather);
+    }
     this.view.bindShowHome(this.handleShowHome);
   };
 
