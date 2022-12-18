@@ -6,6 +6,7 @@ export default class Controller {
 
   async start() {
     this.handleShowHome();
+    // this.handleGetWeather("manila");
   }
 
   handleGetWeather = async (location) => {
@@ -13,7 +14,9 @@ export default class Controller {
     if (weather.cod === "404") {
       this.view.showError(weather.message);
     } else {
-      this.view.showWeather(weather);
+      this.view.setWeatherData(weather);
+      this.view.showWeather("celsius");
+      this.view.bindChangeTemperatureUnit(this.handleChangeTemperatureUnit);
     }
     this.view.bindShowHome(this.handleShowHome);
   };
@@ -21,5 +24,10 @@ export default class Controller {
   handleShowHome = () => {
     this.view.showHome();
     this.view.bindGetWeather(this.handleGetWeather);
+  };
+
+  handleChangeTemperatureUnit = (unit) => {
+    this.view.showWeather(unit);
+    this.view.bindChangeTemperatureUnit(this.handleChangeTemperatureUnit);
   };
 }

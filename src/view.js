@@ -5,6 +5,12 @@ export default class View {
 
   #returnHomeButton;
 
+  #celsiusButton;
+
+  #fahrenheitButton;
+
+  #weatherData;
+
   constructor({ rootSelector } = {}) {
     this.#root = document.querySelector(rootSelector);
     this.#root.className += " w-screen h-screen";
@@ -41,24 +47,41 @@ export default class View {
     });
   }
 
-  showWeather(weather) {
+  showWeather(temperatureUnit) {
+    const temperature = View.#formatTemperature(
+      this.#weatherData.temperature,
+      temperatureUnit
+    );
+    const feelsLike = View.#formatTemperature(
+      this.#weatherData.feelsLike,
+      temperatureUnit
+    );
     this.#root.innerHTML = /* html */ `
       <div class="h-full flex flex-col  justify-center items-center text-gray-500 p-4 gap-4">
         <div class="flex flex-col gap-4 border rounded-md drop-shadow p-10">
           <div class="text-center text-3xl font-semibold">
-            ${weather.location.name}, ${weather.location.country}
+            ${this.#weatherData.location.name}, ${
+      this.#weatherData.location.country
+    }
           </div>
           <div class="text-center text-6xl">
-            &nbsp;&nbsp;${(weather.temperature - 273.15).toFixed(0)}°
+            &nbsp;&nbsp;${temperature.toFixed(0)}°
+          </div>
+          <div class="flex justify-center gap-2">
+            <button class="changeToCelsius">C</button>
+            /
+            <button class="changeToFahrenheit">F</button>
           </div>
           <div class="flex justify-center items-center">
             <img class="h-20 w-20 my-[-1rem]" src=${
-              weather.condition.iconSource
+              this.#weatherData.condition.iconSource
             }>
             <div class="text-center italic">
               ${
-                weather.condition.description.charAt(0).toUpperCase() +
-                weather.condition.description.slice(1)
+                this.#weatherData.condition.description
+                  .charAt(0)
+                  .toUpperCase() +
+                this.#weatherData.condition.description.slice(1)
               }
             </div>
           </div>
@@ -68,7 +91,7 @@ export default class View {
                 Feels like
               </div>
               <div class="flex justify-center text-xl">
-                ${(weather.feelsLike - 273.15).toFixed(0)}°
+                ${feelsLike.toFixed(0)}°
               </div>
             </div>
             <div>
@@ -76,7 +99,7 @@ export default class View {
                 Humidity
               </div>
               <div class="flex justify-center text-xl">
-                ${weather.humidity}%
+                ${this.#weatherData.humidity}%
               </div>
             </div>
             <div>
@@ -84,9 +107,10 @@ export default class View {
                 Sunrise</div>
               <div class="flex justify-center text-xl">
                 ${new Date(
-                  (weather.sunrise + weather.timeZone) * 1000
+                  (this.#weatherData.sunrise + this.#weatherData.timeZone) *
+                    1000
                 ).getUTCHours()}:${new Date(
-      (weather.sunrise + weather.timeZone) * 1000
+      (this.#weatherData.sunrise + this.#weatherData.timeZone) * 1000
     ).getUTCMinutes()} AM
               </div>
             </div>
@@ -97,21 +121,24 @@ export default class View {
               <div class="flex justify-center text-xl">
                 ${
                   new Date(
-                    (weather.sunset + weather.timeZone) * 1000
+                    (this.#weatherData.sunset + this.#weatherData.timeZone) *
+                      1000
                   ).getUTCHours() - 12
                 }:${new Date(
-      (weather.sunset + weather.timeZone) * 1000
+      (this.#weatherData.sunset + this.#weatherData.timeZone) * 1000
     ).getUTCMinutes()} PM
               </div>
             </div>
           </div>
         </div>
-        <button class="underline decoration-indigo-400 transition hover:drop-shadow">
+        <button class="showHome underline decoration-indigo-400 transition hover:drop-shadow">
           Try another location
         </button>
       </div>
     `;
-    this.#returnHomeButton = document.querySelector("button");
+    this.#returnHomeButton = document.querySelector(".showHome");
+    this.#celsiusButton = document.querySelector(".changeToCelsius");
+    this.#fahrenheitButton = document.querySelector(".changeToFahrenheit");
   }
 
   bindShowHome(handler) {
@@ -132,5 +159,32 @@ export default class View {
       </div>
     `;
     this.#returnHomeButton = document.querySelector("button");
+  }
+
+  static #formatTemperature(temperature, unit) {
+    let result;
+    switch (unit) {
+      case "celsius":
+        result = temperature - 273.15;
+        break;
+      case "fahrenheit":
+        result = ((temperature - 273.15) * 9) / 5 + 32;
+        break;
+      default:
+    }
+    return result;
+  }
+
+  bindChangeTemperatureUnit(handler) {
+    this.#celsiusButton.addEventListener("click", () => {
+      handler("celsius");
+    });
+    this.#fahrenheitButton.addEventListener("click", () => {
+      handler("fahrenheit");
+    });
+  }
+
+  setWeatherData(weatherData) {
+    this.#weatherData = weatherData;
   }
 }
