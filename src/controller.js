@@ -6,7 +6,6 @@ export default class Controller {
 
   async start() {
     this.handleShowHome();
-    // this.handleGetWeather("manila");
   }
 
   handleGetWeather = async (location) => {
@@ -29,5 +28,6 @@ export default class Controller {
   handleChangeTemperatureUnit = (unit) => {
     this.view.showWeather(unit);
     this.view.bindChangeTemperatureUnit(this.handleChangeTemperatureUnit);
+    this.view.bindShowHome(this.handleShowHome);
   };
 }

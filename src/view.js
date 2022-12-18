@@ -67,10 +67,10 @@ export default class View {
           <div class="text-center text-6xl">
             &nbsp;&nbsp;${temperature.toFixed(0)}°
           </div>
-          <div class="flex justify-center gap-2">
-            <button class="changeToCelsius">C</button>
+          <div class="flex justify-center items-center gap-2">
+            <button class="changeToCelsius text-lg p-2">C</button>
             /
-            <button class="changeToFahrenheit">F</button>
+            <button class="changeToFahrenheit text-lg p-2">F</button>
           </div>
           <div class="flex justify-center items-center">
             <img class="h-20 w-20 my-[-1rem]" src=${
@@ -139,6 +139,22 @@ export default class View {
     this.#returnHomeButton = document.querySelector(".showHome");
     this.#celsiusButton = document.querySelector(".changeToCelsius");
     this.#fahrenheitButton = document.querySelector(".changeToFahrenheit");
+
+    let activeUnit;
+    let inactiveUnit;
+    switch (temperatureUnit) {
+      case "celsius":
+        activeUnit = this.#celsiusButton;
+        inactiveUnit = this.#fahrenheitButton;
+        break;
+      case "fahrenheit":
+        activeUnit = this.#fahrenheitButton;
+        inactiveUnit = this.#celsiusButton;
+        break;
+      default:
+    }
+    activeUnit.className += " text-xl font-semibold text-indigo-300";
+    inactiveUnit.className += " hover:underline";
   }
 
   bindShowHome(handler) {
