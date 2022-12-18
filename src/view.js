@@ -51,8 +51,10 @@ export default class View {
           <div class="text-center text-6xl">
             &nbsp;&nbsp;${(weather.temperature - 273.15).toFixed(0)}°
           </div>
-          <div class="flex justify-center items-center gap-2">
-            <img class="h-20 w-20" src=${weather.condition.iconSource}>
+          <div class="flex justify-center items-center">
+            <img class="h-20 w-20 my-[-1rem]" src=${
+              weather.condition.iconSource
+            }>
             <div class="text-center italic">
               ${
                 weather.condition.description.charAt(0).toUpperCase() +
