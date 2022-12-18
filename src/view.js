@@ -114,7 +114,7 @@ export default class View {
     this.#returnHomeButton = document.querySelector("button");
   }
 
-  bindReturnHome(handler) {
+  bindShowHome(handler) {
     this.#returnHomeButton.addEventListener("click", () => {
       handler();
     });

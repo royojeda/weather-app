@@ -5,16 +5,16 @@ export default class Controller {
   }
 
   async start() {
-    this.handleReturnHome();
+    this.handleShowHome();
   }
 
   handleGetWeather = async (location) => {
     const weather = await this.model.fetchWeatherData(location);
     this.view.showWeather(weather);
-    this.view.bindReturnHome(this.handleReturnHome);
+    this.view.bindShowHome(this.handleShowHome);
   };
 
-  handleReturnHome = () => {
+  handleShowHome = () => {
     this.view.showHome();
     this.view.bindGetWeather(this.handleGetWeather);
   };
