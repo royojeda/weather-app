@@ -27,7 +27,6 @@ export default class Model {
         country: weatherData.sys.country,
       },
       condition: {
-        category: weatherData.weather[0].main,
         description: weatherData.weather[0].description,
         iconSource: Model.#fetchIconSource(weatherData.weather[0].icon),
       },
