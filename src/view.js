@@ -111,7 +111,10 @@ export default class View {
                     1000
                 ).getUTCHours()}:${new Date(
       (this.#weatherData.sunrise + this.#weatherData.timeZone) * 1000
-    ).getUTCMinutes()} AM
+    )
+      .getUTCMinutes()
+      .toString()
+      .padStart(2, "0")} AM
               </div>
             </div>
             <div>
@@ -126,7 +129,10 @@ export default class View {
                   ).getUTCHours() - 12
                 }:${new Date(
       (this.#weatherData.sunset + this.#weatherData.timeZone) * 1000
-    ).getUTCMinutes()} PM
+    )
+      .getUTCMinutes()
+      .toString()
+      .padStart(2, "0")} PM
               </div>
             </div>
           </div>
